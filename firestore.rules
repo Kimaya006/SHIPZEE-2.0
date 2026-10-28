@@ -1,0 +1,68 @@
+rules_version = '2';
+
+service cloud.firestore {
+  match /databases/{database}/documents {
+
+    // One document per user, named after their Auth user id.
+    match /users/{userId} {
+
+      // You can only read your own profile.
+      allow read: if request.auth != null && request.auth.uid == userId;
+
+      // You can create only your own profile, with a valid role,
+      // and you cannot make yourself verified.
+      allow create: if request.auth != null
+                    && request.auth.uid == userId
+                    && request.resource.data.role in ['sender', 'driver']
+                    && request.resource.data.verified == false;
+
+      // You can edit your own profile, but never change role or verified.
+      allow update: if request.auth != null
+                    && request.auth.uid == userId
+                    && request.resource.data.role == resource.data.role
+                    && request.resource.data.verified == resource.data.verified;
+
+      allow delete: if false;
+    }
+
+    // A trip is posted by a driver. Trips contain no phone numbers or emails,
+    // so any logged in user may read them (senders need to search them).
+    match /trips/{tripId} {
+
+      allow read: if request.auth != null;
+
+      // Only a driver can post, only as themselves, and the numbers must be sane.
+      allow create: if request.auth != null
+                    && get(/databases/$(database)/documents/users/$(request.auth.uid)).data.role == 'driver'
+                    && request.resource.data.keys().hasOnly([
+                         'driverId', 'driverName', 'fromCity', 'toCity',
+                         'fromDisplay', 'toDisplay', 'departAt', 'capacityKg',
+                         'remainingKg', 'ratePerKg', 'status', 'createdAt'])
+                    && request.resource.data.driverId == request.auth.uid
+                    && request.resource.data.driverName == get(/databases/$(database)/documents/users/$(request.auth.uid)).data.name
+                    && request.resource.data.status == 'open'
+                    && request.resource.data.fromCity is string
+                    && request.resource.data.toCity is string
+                    && request.resource.data.fromCity != request.resource.data.toCity
+                    && request.resource.data.departAt is timestamp
+                    && request.resource.data.createdAt == request.time
+                    && request.resource.data.capacityKg is int
+                    && request.resource.data.capacityKg >= 1
+                    && request.resource.data.capacityKg <= 50
+                    && request.resource.data.remainingKg == request.resource.data.capacityKg
+                    && request.resource.data.ratePerKg is int
+                    && request.resource.data.ratePerKg >= 1
+                    && request.resource.data.ratePerKg <= 1000;
+
+      // The owner can do exactly one thing: change status to cancelled.
+      allow update: if request.auth != null
+                    && resource.data.driverId == request.auth.uid
+                    && request.resource.data.diff(resource.data).affectedKeys().hasOnly(['status'])
+                    && request.resource.data.status == 'cancelled';
+
+      allow delete: if false;
+    }
+
+    // Everything else is closed until a later stage opens it on purpose.
+  }
+}
