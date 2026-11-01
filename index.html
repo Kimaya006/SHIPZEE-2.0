@@ -3,15 +3,106 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>RoadParcel</title>
+  <meta name="theme-color" content="#0f4c3a" />
+  <title>Shipzee | Send parcels with people already going your way</title>
+  <link rel="icon" href="assets/logo.svg" type="image/svg+xml" />
   <link rel="stylesheet" href="css/style.css" />
 </head>
 <body>
-  <main class="card">
-    <h1>RoadParcel</h1>
-    <p class="subtitle">Send parcels with people already going your way.</p>
-    <a class="btn" href="login.html">Log in</a>
-    <a class="btn btn-outline" href="signup.html">Create account</a>
+  <header class="site-header">
+    <a class="brand brand-dark" href="index.html">
+      <img src="assets/logo.svg" alt="" width="32" height="32" />
+      <span>Shipzee</span>
+    </a>
+    <nav class="site-actions" aria-label="Account">
+      <a class="btn btn-outline btn-small" href="login.html">Log in</a>
+      <a class="btn btn-small" href="signup.html">Sign up</a>
+    </nav>
+  </header>
+
+  <main>
+    <section class="hero">
+      <div>
+        <h1>Send parcels with people already going your way.</h1>
+        <p class="hero-lead">
+          Drivers post the trips they are making anyway. Senders find a driver on their route and pay by weight.
+          Fewer half empty vehicles on the road, and extra income for the people driving them.
+        </p>
+        <div class="hero-actions">
+          <a class="btn" href="signup.html">Create an account</a>
+          <a class="btn btn-outline" href="login.html">Log in</a>
+        </div>
+      </div>
+
+      <div class="hero-sample">
+        <ul class="trip-list" aria-label="Example trip">
+          <li class="trip-card">
+            <div class="sign">
+              <span class="city">Mumbai</span>
+              <span class="lane" aria-hidden="true"></span>
+              <span class="city">Pune</span>
+            </div>
+            <div class="trip-body">
+              <p class="trip-when">Sun, 1 Nov, 8:00 am</p>
+              <dl class="trip-facts">
+                <div><dt>Driver</dt><dd>Asha</dd></div>
+                <div><dt>Free space</dt><dd>12 kg</dd></div>
+                <div><dt>Rate</dt><dd>Rs 30 per kg</dd></div>
+              </dl>
+            </div>
+          </li>
+        </ul>
+        <p class="hero-caption">An example trip, as a sender sees it.</p>
+      </div>
+    </section>
+
+    <div class="band">
+      <section class="section">
+        <h2 class="section-heading">How Shipzee works</h2>
+        <ol class="steps">
+          <li class="step">
+            <span class="step-num">1</span>
+            <h3>A driver posts a trip</h3>
+            <p>Say where you are going, when you leave and how much space you can spare.</p>
+          </li>
+          <li class="step">
+            <span class="step-num">2</span>
+            <h3>A sender picks a driver</h3>
+            <p>Search your route, compare drivers and rates, and send a request with the parcel's weight.</p>
+          </li>
+          <li class="step">
+            <span class="step-num">3</span>
+            <h3>The parcel arrives</h3>
+            <p>Pickup and delivery are each confirmed with a one time code, so the right parcel reaches the right person.</p>
+          </li>
+        </ol>
+      </section>
+    </div>
+
+    <section class="section">
+      <div class="split">
+        <div>
+          <h2 class="section-heading">For senders</h2>
+          <ul class="checklist">
+            <li>Search trips by route and date</li>
+            <li>See the driver, departure time and rate per kg before you decide</li>
+            <li>Pay by weight, not by vehicle</li>
+          </ul>
+        </div>
+        <div>
+          <h2 class="section-heading">For drivers</h2>
+          <ul class="checklist">
+            <li>Post a trip in under a minute</li>
+            <li>Set your own rate per kg and the space you can spare</li>
+            <li>Cancel a trip any time before you leave</li>
+          </ul>
+        </div>
+      </div>
+    </section>
   </main>
+
+  <footer class="site-footer">
+    <p>Shipzee is a student project. Payments are simulated and some features are still being built.</p>
+  </footer>
 </body>
 </html>

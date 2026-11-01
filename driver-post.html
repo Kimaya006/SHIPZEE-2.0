@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="theme-color" content="#0f4c3a" />
+  <title>Post a trip | Shipzee</title>
+  <link rel="icon" href="assets/logo.svg" type="image/svg+xml" />
+  <link rel="stylesheet" href="css/style.css" />
+</head>
+<body>
+  <div id="app" hidden>
+    <main class="page" id="content">
+      <h1 class="page-title">Post a trip</h1>
+      <p class="page-sub">Tell senders where you are going and how much space you have.</p>
+
+      <div class="panel">
+        <form id="trip-form" novalidate>
+          <div class="field-grid">
+            <div>
+              <label for="from">From</label>
+              <input type="text" id="from" list="cities" autocomplete="off" placeholder="City" />
+            </div>
+            <div>
+              <label for="to">To</label>
+              <input type="text" id="to" list="cities" autocomplete="off" placeholder="City" />
+            </div>
+          </div>
+
+          <label for="departAt">Leaving on</label>
+          <input type="datetime-local" id="departAt" />
+
+          <div class="field-grid">
+            <div>
+              <label for="capacityKg">Space for parcels (kg)</label>
+              <input type="number" id="capacityKg" min="1" max="50" step="1" inputmode="numeric" />
+              <p class="hint">Whole kg, up to 50.</p>
+            </div>
+            <div>
+              <label for="ratePerKg">Your rate (Rs per kg)</label>
+              <input type="number" id="ratePerKg" min="1" max="1000" step="1" inputmode="numeric" />
+              <p class="hint">Whole rupees, up to 1000.</p>
+            </div>
+          </div>
+
+          <datalist id="cities"></datalist>
+
+          <p id="trip-message" class="message" role="alert"></p>
+          <button type="submit" class="btn btn-block">Post trip</button>
+        </form>
+      </div>
+    </main>
+  </div>
+
+  <script type="module" src="js/driver-post.js"></script>
+</body>
+</html>

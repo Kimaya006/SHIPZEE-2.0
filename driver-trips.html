@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="theme-color" content="#0f4c3a" />
+  <title>My trips | Shipzee</title>
+  <link rel="icon" href="assets/logo.svg" type="image/svg+xml" />
+  <link rel="stylesheet" href="css/style.css" />
+</head>
+<body>
+  <div id="app" hidden>
+    <main class="page" id="content">
+      <h1 class="page-title">My trips</h1>
+      <p class="page-sub">Every trip you have posted.</p>
+
+      <div class="chips" id="filters" role="group" aria-label="Filter trips">
+        <button type="button" class="chip" data-filter="upcoming" aria-pressed="true">Upcoming</button>
+        <button type="button" class="chip" data-filter="past" aria-pressed="false">Past</button>
+        <button type="button" class="chip" data-filter="cancelled" aria-pressed="false">Cancelled</button>
+        <button type="button" class="chip" data-filter="all" aria-pressed="false">All</button>
+      </div>
+
+      <ul class="trip-list" id="trip-list"></ul>
+      <div class="empty" id="trips-empty" hidden></div>
+    </main>
+  </div>
+
+  <script type="module" src="js/driver-trips.js"></script>
+</body>
+</html>

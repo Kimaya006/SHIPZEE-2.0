@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="theme-color" content="#0f4c3a" />
+  <title>Find a driver | Shipzee</title>
+  <link rel="icon" href="assets/logo.svg" type="image/svg+xml" />
+  <link rel="stylesheet" href="css/style.css" />
+</head>
+<body>
+  <!-- hidden until guard.js confirms this user is a sender; shell.js adds the top bar and tabs -->
+  <div id="app" hidden>
+    <main class="page" id="content">
+      <h1 class="page-title">Find a driver</h1>
+      <p class="page-sub">Search your route to see who is going your way.</p>
+
+      <div class="panel">
+        <form id="search-form" novalidate>
+          <div class="field-grid">
+            <div>
+              <label for="from">From</label>
+              <input type="text" id="from" list="cities" autocomplete="off" placeholder="City" />
+            </div>
+            <div>
+              <label for="to">To</label>
+              <input type="text" id="to" list="cities" autocomplete="off" placeholder="City" />
+            </div>
+          </div>
+
+          <label for="date">Date (optional)</label>
+          <input type="date" id="date" />
+
+          <datalist id="cities"></datalist>
+
+          <p id="search-message" class="message" role="alert"></p>
+          <button type="submit" class="btn btn-block">Search drivers</button>
+        </form>
+      </div>
+
+      <h2 class="section-title" id="results-heading" hidden>Available trips</h2>
+      <ul class="trip-list" id="results-list"></ul>
+      <div class="empty" id="results-empty" hidden></div>
+    </main>
+  </div>
+
+  <script type="module" src="js/sender-search.js"></script>
+</body>
+</html>

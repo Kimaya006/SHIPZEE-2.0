@@ -1,159 +1,844 @@
-/* One stylesheet for every page. Mobile first: the card is narrow and centered. */
+/* Shipzee styles. One file for every page.
 
-* {
+   Look: Indian road signage. Highway green, lane marking yellow, concrete grey.
+   The green "sign" at the top of each trip card is the one loud element.
+   Everything around it stays quiet: flat surfaces, thin lines, no shadows. */
+
+@import url("https://fonts.googleapis.com/css2?family=Barlow:wght@400;500;600;700&family=Barlow+Condensed:wght@600;700;800&display=swap");
+
+:root {
+  /* colour */
+  --asphalt: #17201c;
+  --asphalt-soft: #2f3a35;
+  --green: #0f4c3a;
+  --green-soft: #ddeee5;
+  --yellow: #ffc400;
+  --yellow-hover: #ffd23f;
+  --yellow-soft: #fff1b8;
+  --concrete: #eef0ec;
+  --surface: #ffffff;
+  --line: #d3d8d1;
+  --muted: #566059;
+  --field-border: #7e877f;
+  --bad: #b3261e;
+  --bad-soft: #fbe3e0;
+  --neutral-soft: #e3e6e1;
+  --focus: #0b63ce;
+
+  /* type */
+  --font-body: "Barlow", system-ui, -apple-system, "Segoe UI", sans-serif;
+  --font-display: "Barlow Condensed", "Barlow", system-ui, sans-serif;
+
+  /* layout */
+  --radius: 8px;
+  --topbar-h: 60px;
+  --tabbar-h: 64px;
+  --sidebar-w: 232px;
+}
+
+*,
+*::before,
+*::after {
   box-sizing: border-box;
+}
+
+/* Without this, a class like .empty { display: flex } would beat the hidden attribute. */
+[hidden] {
+  display: none !important;
 }
 
 body {
   margin: 0;
-  min-height: 100vh;
-  display: flex;
+  font-family: var(--font-body);
+  font-size: 1.0625rem;
+  line-height: 1.5;
+  color: var(--asphalt);
+  background: var(--concrete);
+}
+
+h1,
+h2,
+h3 {
+  margin: 0;
+  font-family: var(--font-display);
+  font-weight: 800;
+  line-height: 1.08;
+}
+
+p {
+  margin: 0;
+}
+
+a {
+  color: inherit;
+}
+
+img {
+  display: block;
+  max-width: 100%;
+}
+
+:focus-visible {
+  outline: 3px solid var(--focus);
+  outline-offset: 2px;
+}
+
+.topbar :focus-visible {
+  outline-color: var(--yellow);
+}
+
+/* ---------- Buttons ---------- */
+
+.btn {
+  display: inline-flex;
   align-items: center;
   justify-content: center;
-  padding: 16px;
-  font-family: system-ui, -apple-system, "Segoe UI", sans-serif;
-  background: #f3f4f6;
-  color: #1f2937;
+  min-height: 48px;
+  padding: 0 22px;
+  font: inherit;
+  font-weight: 700;
+  color: var(--asphalt);
+  text-decoration: none;
+  background: var(--yellow);
+  border: 2px solid var(--yellow);
+  border-radius: var(--radius);
+  cursor: pointer;
 }
 
-.card {
+.btn:hover {
+  background: var(--yellow-hover);
+  border-color: var(--yellow-hover);
+}
+
+.btn:disabled {
+  opacity: 0.55;
+  cursor: not-allowed;
+}
+
+.btn-block {
+  display: flex;
   width: 100%;
-  max-width: 420px;
-  background: #ffffff;
-  padding: 24px;
-  border-radius: 12px;
-  box-shadow: 0 2px 12px rgba(0, 0, 0, 0.08);
+  margin-top: 20px;
 }
 
-h1 {
-  margin: 0 0 4px;
-  font-size: 1.5rem;
+.btn-outline {
+  background: transparent;
+  border-color: var(--asphalt);
 }
 
-.subtitle {
-  margin: 0 0 16px;
-  color: #6b7280;
+.btn-outline:hover {
+  color: #ffffff;
+  background: var(--asphalt);
+  border-color: var(--asphalt);
 }
+
+.btn-small {
+  min-height: 44px;
+  padding: 0 16px;
+  font-size: 0.95rem;
+}
+
+.btn-danger {
+  color: var(--bad);
+  background: transparent;
+  border-color: var(--bad);
+}
+
+.btn-danger:hover {
+  background: var(--bad-soft);
+  border-color: var(--bad);
+}
+
+/* ---------- Forms ---------- */
 
 label {
   display: block;
-  margin: 12px 0 4px;
-  font-size: 0.9rem;
+  margin: 18px 0 6px;
+  font-size: 0.95rem;
   font-weight: 600;
 }
 
 input,
 select {
   width: 100%;
-  padding: 10px;
-  font-size: 1rem;
-  border: 1px solid #d1d5db;
-  border-radius: 8px;
+  min-height: 48px;
+  padding: 10px 14px;
+  font: inherit;
+  color: var(--asphalt);
+  background: #ffffff;
+  border: 1.5px solid var(--field-border);
+  border-radius: var(--radius);
 }
 
 input:focus,
 select:focus {
-  outline: 2px solid #2563eb;
-  border-color: transparent;
+  outline: none;
+  border-color: var(--green);
+  box-shadow: 0 0 0 3px rgba(255, 196, 0, 0.7);
 }
 
-.btn {
-  display: block;
-  width: 100%;
-  margin-top: 16px;
-  padding: 12px;
-  font-size: 1rem;
-  text-align: center;
-  text-decoration: none;
-  color: #ffffff;
-  background: #2563eb;
-  border: 2px solid #2563eb;
-  border-radius: 8px;
-  cursor: pointer;
-}
-
-.btn-outline {
-  color: #2563eb;
-  background: #ffffff;
+.hint {
+  margin-top: 6px;
+  font-size: 0.9rem;
+  color: var(--muted);
 }
 
 .message {
-  min-height: 1.2em;
-  margin: 12px 0 0;
-  font-size: 0.9rem;
-  color: #dc2626;
+  min-height: 1.5em;
+  margin-top: 14px;
+  font-size: 0.95rem;
+  font-weight: 600;
+  color: var(--bad);
 }
 
 .message.info {
-  color: #2563eb;
+  color: var(--green);
+}
+
+.field-grid {
+  display: grid;
+  gap: 0 16px;
+}
+
+/* The first label in a panel form has its own top margin. Pull the first row up so the
+   panel does not get a double gap at the top. */
+.panel > form > .field-grid:first-child {
+  margin-top: -18px;
+}
+
+.form-heading {
+  margin-top: 28px;
+  padding-top: 20px;
+  font-size: 1.3rem;
+  font-weight: 700;
+  border-top: 1px solid var(--line);
+}
+
+.form-heading-first {
+  margin-top: 24px;
+  padding-top: 0;
+  border-top: 0;
+}
+
+.panel {
+  padding: 20px;
+  background: var(--surface);
+  border: 1px solid var(--line);
+  border-radius: 12px;
+}
+
+/* ---------- Brand ---------- */
+
+.brand {
+  display: inline-flex;
+  align-items: center;
+  gap: 10px;
+  font-family: var(--font-display);
+  font-size: 1.65rem;
+  font-weight: 800;
+  line-height: 1;
+  color: #ffffff;
+  text-decoration: none;
+}
+
+.brand-dark {
+  color: var(--green);
+}
+
+/* ---------- Auth pages ---------- */
+
+.auth-body {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  min-height: 100vh;
+  padding: 24px 16px;
+}
+
+.auth-card {
+  width: 100%;
+  max-width: 480px;
+  padding: 28px 24px;
+  background: var(--surface);
+  border: 1px solid var(--line);
+  border-radius: 12px;
+}
+
+.auth-brand {
+  margin-bottom: 24px;
+}
+
+.auth-title {
+  font-size: 2.1rem;
 }
 
 .footer-text {
-  margin-top: 16px;
+  margin-top: 22px;
+  font-size: 0.95rem;
+  color: var(--muted);
   text-align: center;
-  font-size: 0.9rem;
 }
 
-/* Dashboards: start at the top because the page can be long. */
-body.top-aligned {
-  align-items: flex-start;
+.footer-text a {
+  font-weight: 700;
+  color: var(--asphalt);
 }
 
-h2 {
-  margin: 24px 0 4px;
-  font-size: 1.15rem;
+/* ---------- App shell (top bar and tabs) ---------- */
+
+.topbar {
+  position: fixed;
+  inset: 0 0 auto 0;
+  z-index: 20;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  height: var(--topbar-h);
+  padding: 0 16px;
+  background: var(--green);
 }
+
+.topbar-right {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
+
+.role-pill {
+  padding: 3px 12px;
+  font-size: 0.85rem;
+  font-weight: 700;
+  color: var(--asphalt);
+  background: var(--yellow);
+  border-radius: 999px;
+}
+
+.avatar {
+  display: grid;
+  place-items: center;
+  width: 38px;
+  height: 38px;
+  font-weight: 700;
+  color: var(--asphalt);
+  text-decoration: none;
+  background: #ffffff;
+  border-radius: 50%;
+}
+
+/* Phones: tabs sit at the bottom, within thumb reach. */
+.tabbar {
+  position: fixed;
+  inset: auto 0 0 0;
+  z-index: 20;
+  display: flex;
+  height: var(--tabbar-h);
+  padding-bottom: env(safe-area-inset-bottom);
+  background: var(--surface);
+  border-top: 1px solid var(--line);
+}
+
+.tab {
+  display: flex;
+  flex: 1;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 2px;
+  font-size: 0.75rem;
+  font-weight: 600;
+  color: var(--muted);
+  text-decoration: none;
+}
+
+.tab-icon {
+  display: grid;
+  place-items: center;
+}
+
+.tab.active {
+  font-weight: 700;
+  color: var(--asphalt);
+  box-shadow: inset 0 4px 0 var(--yellow);
+}
+
+.page {
+  max-width: 760px;
+  margin: 0 auto;
+  padding: calc(var(--topbar-h) + 24px) 16px calc(var(--tabbar-h) + 32px);
+}
+
+.page-title {
+  font-size: 2.1rem;
+}
+
+.page-sub {
+  margin: 6px 0 20px;
+  color: var(--muted);
+}
+
+.section-title {
+  margin: 28px 0 12px;
+  font-size: 1.4rem;
+  font-weight: 700;
+}
+
+/* Wide screens: tabs move to a sidebar. */
+@media (min-width: 800px) {
+  #app {
+    padding-left: var(--sidebar-w);
+  }
+
+  .topbar {
+    padding: 0 24px;
+  }
+
+  .tabbar {
+    inset: var(--topbar-h) auto 0 0;
+    flex-direction: column;
+    justify-content: flex-start;
+    gap: 4px;
+    width: var(--sidebar-w);
+    height: auto;
+    padding: 16px 12px;
+    border-top: 0;
+    border-right: 1px solid var(--line);
+  }
+
+  .tab {
+    flex: none;
+    flex-direction: row;
+    justify-content: flex-start;
+    gap: 12px;
+    padding: 12px 14px;
+    font-size: 1rem;
+    border-radius: var(--radius);
+  }
+
+  .tab:hover {
+    background: var(--concrete);
+  }
+
+  .tab.active {
+    background: var(--yellow-soft);
+    box-shadow: none;
+  }
+
+  .page {
+    padding: calc(var(--topbar-h) + 32px) 32px 56px;
+  }
+}
+
+/* ---------- Trips ---------- */
 
 .trip-list {
-  list-style: none;
-  margin: 8px 0 0;
+  display: grid;
+  gap: 14px;
+  margin: 0;
   padding: 0;
+  list-style: none;
 }
 
-.trip {
-  margin-bottom: 12px;
-  padding: 12px;
-  border: 1px solid #e5e7eb;
-  border-radius: 8px;
+.trip-card {
+  background: var(--surface);
+  border: 1px solid var(--line);
+  border-radius: 12px;
 }
 
-.trip-meta {
-  margin-top: 2px;
-  font-size: 0.9rem;
-  color: #6b7280;
+/* The green highway sign. The yellow dashes are the lane marking between two cities. */
+.sign {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 6px 14px;
+  margin: 8px;
+  padding: 18px 22px;
+  color: #ffffff;
+  background: var(--green);
+  border-radius: var(--radius);
+  outline: 2px solid rgba(255, 255, 255, 0.9);
+  outline-offset: -7px;
+}
+
+.city {
+  font-family: var(--font-display);
+  font-size: 1.75rem;
+  font-weight: 700;
+  line-height: 1.1;
+  overflow-wrap: break-word;
+}
+
+.lane {
+  flex: 1 1 40px;
+  min-width: 40px;
+  height: 0;
+  border-top: 4px dashed var(--yellow);
+}
+
+.trip-body {
+  padding: 8px 16px 16px;
+}
+
+.trip-top {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12px;
+}
+
+.trip-when {
+  font-weight: 600;
+}
+
+.trip-facts {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px 28px;
+  margin: 12px 0 0;
+}
+
+.trip-facts dt {
+  font-size: 0.875rem;
+  color: var(--muted);
+}
+
+.trip-facts dd {
+  margin: 0;
+  font-weight: 700;
+}
+
+.trip-actions {
+  margin-top: 14px;
 }
 
 .badge {
-  display: inline-block;
-  margin-top: 8px;
-  padding: 2px 8px;
-  font-size: 0.8rem;
+  padding: 2px 10px;
+  font-size: 0.85rem;
+  font-weight: 700;
+  white-space: nowrap;
   border-radius: 999px;
 }
 
 .badge-open {
-  color: #166534;
-  background: #dcfce7;
+  color: var(--green);
+  background: var(--green-soft);
 }
 
 .badge-cancelled {
-  color: #991b1b;
-  background: #fee2e2;
+  color: var(--bad);
+  background: var(--bad-soft);
 }
 
 .badge-past {
-  color: #374151;
-  background: #e5e7eb;
+  color: var(--asphalt-soft);
+  background: var(--neutral-soft);
 }
 
-.btn-small {
-  display: block;
-  margin-top: 8px;
-  padding: 6px 12px;
-  font-size: 0.85rem;
-  color: #dc2626;
-  background: #ffffff;
-  border: 1px solid #dc2626;
-  border-radius: 6px;
+.stats {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  margin: 20px 0 8px;
+  background: var(--surface);
+  border: 1px solid var(--line);
+  border-radius: 12px;
+}
+
+.stat {
+  padding: 14px 16px;
+}
+
+.stat + .stat {
+  border-left: 1px solid var(--line);
+}
+
+.stat-value {
+  font-family: var(--font-display);
+  font-size: 2.1rem;
+  font-weight: 800;
+  line-height: 1.05;
+}
+
+.stat-label {
+  font-size: 0.9rem;
+  color: var(--muted);
+}
+
+.chips {
+  display: flex;
+  gap: 8px;
+  margin: 4px 0 16px;
+  padding-bottom: 4px;
+  overflow-x: auto;
+}
+
+.chip {
+  flex: none;
+  min-height: 44px;
+  padding: 0 14px;
+  font: inherit;
+  font-size: 0.95rem;
+  font-weight: 600;
+  color: var(--asphalt);
+  background: var(--surface);
+  border: 1.5px solid var(--field-border);
+  border-radius: 999px;
   cursor: pointer;
+}
+
+.chip[aria-pressed="true"] {
+  font-weight: 700;
+  background: var(--yellow);
+  border-color: var(--yellow);
+}
+
+.empty {
+  padding: 32px 20px;
+  text-align: center;
+  background: var(--surface);
+  border: 1.5px dashed var(--field-border);
+  border-radius: 12px;
+}
+
+.empty-title {
+  font-family: var(--font-display);
+  font-size: 1.5rem;
+  font-weight: 700;
+}
+
+.empty-text {
+  max-width: 28em;
+  margin: 4px auto 18px;
+  color: var(--muted);
+}
+
+.toast {
+  position: fixed;
+  left: 50%;
+  bottom: calc(var(--tabbar-h) + 16px);
+  z-index: 50;
+  max-width: calc(100% - 32px);
+  padding: 12px 20px;
+  font-weight: 600;
+  color: #ffffff;
+  background: var(--asphalt);
+  border-radius: var(--radius);
+  transform: translateX(-50%);
+}
+
+.details {
+  margin: 0;
+}
+
+.details > div {
+  display: flex;
+  justify-content: space-between;
+  gap: 16px;
+  padding: 12px 0;
+  border-bottom: 1px solid var(--line);
+}
+
+.details > div:first-child {
+  padding-top: 0;
+}
+
+.details > div:last-child {
+  padding-bottom: 0;
+  border-bottom: 0;
+}
+
+.details dt {
+  color: var(--muted);
+}
+
+.details dd {
+  margin: 0;
+  font-weight: 600;
+  text-align: right;
+  overflow-wrap: anywhere;
+}
+
+.logout {
+  margin-top: 20px;
+}
+
+/* ---------- Landing page ---------- */
+
+.site-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12px;
+  max-width: 1100px;
+  margin: 0 auto;
+  padding: 16px;
+}
+
+.site-actions {
+  display: flex;
+  gap: 8px;
+}
+
+.hero {
+  display: grid;
+  gap: 36px;
+  max-width: 1100px;
+  margin: 0 auto;
+  padding: 32px 16px 56px;
+}
+
+.hero h1 {
+  font-size: clamp(2.8rem, 9vw, 5.2rem);
+  line-height: 1;
+}
+
+.hero-lead {
+  max-width: 34em;
+  margin: 20px 0 28px;
+  font-size: 1.2rem;
+  color: var(--asphalt-soft);
+}
+
+.hero-actions {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 12px;
+}
+
+.hero-caption {
+  margin-top: 10px;
+  font-size: 0.9rem;
+  color: var(--muted);
+}
+
+.hero-sample .city {
+  font-size: 2.1rem;
+}
+
+.band {
+  background: var(--surface);
+  border-block: 1px solid var(--line);
+}
+
+.section {
+  max-width: 1100px;
+  margin: 0 auto;
+  padding: 48px 16px;
+}
+
+.section-heading {
+  font-size: clamp(1.9rem, 5vw, 2.6rem);
+}
+
+.steps {
+  display: grid;
+  gap: 24px;
+  margin: 24px 0 0;
+  padding: 0;
+  list-style: none;
+}
+
+.step {
+  padding-top: 14px;
+  border-top: 4px solid var(--green);
+}
+
+.step-num {
+  display: block;
+  font-family: var(--font-display);
+  font-size: 2.6rem;
+  font-weight: 800;
+  line-height: 1;
+  color: var(--green);
+}
+
+.step h3 {
+  margin: 8px 0 6px;
+  font-size: 1.5rem;
+  font-weight: 700;
+}
+
+.step p {
+  color: var(--asphalt-soft);
+}
+
+.split {
+  display: grid;
+  gap: 40px;
+}
+
+.checklist {
+  display: grid;
+  gap: 10px;
+  margin: 16px 0 0;
+  padding: 0;
+  list-style: none;
+}
+
+.checklist li {
+  position: relative;
+  padding-left: 26px;
+}
+
+.checklist li::before {
+  content: "";
+  position: absolute;
+  top: 0.5em;
+  left: 0;
+  width: 11px;
+  height: 11px;
+  background: var(--yellow);
+  border: 2px solid var(--green);
+}
+
+.site-footer {
+  max-width: 1100px;
+  margin: 0 auto;
+  padding: 32px 16px 48px;
+  font-size: 0.95rem;
+  color: var(--muted);
+}
+
+@media (max-width: 480px) {
+  .city {
+    font-size: 1.5rem;
+  }
+}
+
+@media (min-width: 520px) {
+  .field-grid {
+    grid-template-columns: 1fr 1fr;
+  }
+}
+
+@media (min-width: 760px) {
+  .steps {
+    grid-template-columns: repeat(3, 1fr);
+    gap: 32px;
+  }
+
+  .split {
+    grid-template-columns: 1fr 1fr;
+    gap: 64px;
+  }
+}
+
+@media (min-width: 800px) {
+  .toast {
+    bottom: 24px;
+  }
+}
+
+@media (min-width: 900px) {
+  .hero {
+    grid-template-columns: 1.2fr 1fr;
+    gap: 56px;
+    align-items: center;
+    padding-top: 56px;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  * {
+    transition: none !important;
+    animation: none !important;
+  }
 }

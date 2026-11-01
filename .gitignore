@@ -1,0 +1,16 @@
+# Operating system files
+.DS_Store
+Thumbs.db
+
+# Secrets and local settings. Never commit these.
+.env
+.env.*
+*.pem
+serviceAccountKey*.json
+
+# Dependencies and logs (needed in later stages)
+node_modules/
+*.log
+
+# Editor settings
+.vscode/

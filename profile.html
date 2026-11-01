@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="theme-color" content="#0f4c3a" />
+  <title>Profile | Shipzee</title>
+  <link rel="icon" href="assets/logo.svg" type="image/svg+xml" />
+  <link rel="stylesheet" href="css/style.css" />
+</head>
+<body>
+  <div id="app" hidden>
+    <main class="page" id="content">
+      <h1 class="page-title">Profile</h1>
+      <p class="page-sub">Your account details.</p>
+
+      <div class="panel">
+        <dl class="details">
+          <div><dt>Name</dt><dd id="p-name"></dd></div>
+          <div><dt>Account type</dt><dd id="p-role"></dd></div>
+          <div><dt>Email</dt><dd id="p-email"></dd></div>
+          <div><dt>Second email</dt><dd id="p-email2"></dd></div>
+          <div><dt>Phone</dt><dd id="p-phone1"></dd></div>
+          <div><dt>Second phone</dt><dd id="p-phone2"></dd></div>
+          <div><dt>Verification</dt><dd id="p-verified"></dd></div>
+          <div><dt>Member since</dt><dd id="p-since"></dd></div>
+        </dl>
+      </div>
+
+      <button type="button" id="logout-btn" class="btn btn-outline logout">Log out</button>
+    </main>
+  </div>
+
+  <script type="module" src="js/profile.js"></script>
+</body>
+</html>

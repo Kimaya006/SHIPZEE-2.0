@@ -1,7 +1,8 @@
-// Protects the dashboards. Each dashboard calls requireRole("driver") or
-// requireRole("sender"). The page stays hidden until we confirm:
+// Protects every page inside the app. A page calls requireRole("driver", ...),
+// requireRole("sender", ...) or requireRole("any", ...). The page stays hidden
+// until we confirm:
 //   1. someone is logged in
-//   2. their saved role matches this page
+//   2. their saved role is allowed on this page
 // Otherwise they are sent to the right place.
 //
 // Note: this only controls what the user SEES. Real protection of the data
@@ -19,6 +20,8 @@ export function requireRole(expectedRole, onReady) {
       return;
     }
 
+    let profile;
+
     try {
       const snap = await getDoc(doc(db, "users", user.uid));
 
@@ -29,19 +32,24 @@ export function requireRole(expectedRole, onReady) {
         return;
       }
 
-      const profile = snap.data();
-
-      if (profile.role !== expectedRole) {
-        location.replace(dashboardFor(profile.role));
-        return;
-      }
-
-      document.getElementById("content").hidden = false;
-      onReady(profile, user);
+      profile = snap.data();
     } catch (error) {
       console.error("Could not load profile:", error);
       location.replace("login.html");
+      return;
     }
+
+    if (expectedRole !== "any" && profile.role !== expectedRole) {
+      location.replace(dashboardFor(profile.role));
+      return;
+    }
+
+    document.getElementById("app").hidden = false;
+
+    // onReady runs outside the try block on purpose. If the page's own code
+    // has a bug, we want to see that error in the console, not get bounced
+    // to the login page with a misleading message.
+    onReady(profile, user);
   });
 }
 

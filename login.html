@@ -3,12 +3,20 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Log in | RoadParcel</title>
+  <meta name="theme-color" content="#0f4c3a" />
+  <title>Log in | Shipzee</title>
+  <link rel="icon" href="assets/logo.svg" type="image/svg+xml" />
   <link rel="stylesheet" href="css/style.css" />
 </head>
-<body>
-  <main class="card">
-    <h1>Log in</h1>
+<body class="auth-body">
+  <main class="auth-card">
+    <a class="brand brand-dark auth-brand" href="index.html">
+      <img src="assets/logo.svg" alt="" width="32" height="32" />
+      <span>Shipzee</span>
+    </a>
+
+    <h1 class="auth-title">Log in</h1>
+    <p class="page-sub">Welcome back.</p>
 
     <form id="login-form" novalidate>
       <label for="email">Email</label>
@@ -18,10 +26,10 @@
       <input type="password" id="password" autocomplete="current-password" />
 
       <p id="message" class="message" role="alert"></p>
-      <button type="submit" class="btn">Log in</button>
+      <button type="submit" class="btn btn-block">Log in</button>
     </form>
 
-    <p class="footer-text">New here? <a href="signup.html">Create account</a></p>
+    <p class="footer-text">New to Shipzee? <a href="signup.html">Create an account</a></p>
   </main>
 
   <script type="module" src="js/login.js"></script>
